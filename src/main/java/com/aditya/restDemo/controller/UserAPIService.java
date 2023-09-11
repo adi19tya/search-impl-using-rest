@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 //@RequestMapping(path = "/users}")
 public class UserAPIService {
-    //Implement a GET Method
-//    @GetMapping("{userID}")
+
     @GetMapping("/users/{userID}")
     public User getUserDetails(@PathVariable Long userID) throws SolrServerException, IOException {
         // call the queryByField Method from the userServiceImpl
-        System.out.println("User ID: " + userID);
         UserServiceImpl serviceImpl = new UserServiceImpl();
         User result = serviceImpl.queryByField("userID", userID);
         System.out.println("Result: " + result);
@@ -27,10 +25,10 @@ public class UserAPIService {
 
     // Create a POST Method
     @PostMapping(path = "/users")
-    public void indexDocumentIntoSolr() throws SolrServerException, IOException {
+    public void indexDocumentIntoSolr(@RequestBody User doc) throws SolrServerException, IOException {
         // call the indexDocument Method from the userService Impl
         UserServiceImpl serviceImpl = new UserServiceImpl();
-        serviceImpl.indexDocument();
+        serviceImpl.indexDocument(doc);
     }
 
 }

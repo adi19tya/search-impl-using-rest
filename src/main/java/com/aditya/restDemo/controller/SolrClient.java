@@ -50,14 +50,6 @@ public class SolrClient implements SearchClient{
 
         SolrDocumentList docList = response.getResults();
         JSONObject returnResults = new JSONObject();
-//        JSONArray docs = new JSONArray();
-
-//        for(Map singleDoc : docList)
-//        {
-//            docs.put(new JSONObject(singleDoc));
-////            solrDocMap.put(counter, new JSONObject(singleDoc));
-////            counter++;
-//        }
 
         Map map = docList.get(0);
         User userResult = new User();
@@ -65,32 +57,24 @@ public class SolrClient implements SearchClient{
         userResult.setUserID((Long)map.get("userID"));
         userResult.setFirstName(map.get("firstName").toString());
         userResult.setLastName(map.get("lastName").toString());
-        userResult.setPhoneNumber(map.get("phoneNumber").toString());
+        userResult.setPhoneNumber((long)map.get("phoneNumber"));
 
-
-//        System.out.println("docs: " + docs);
-
-//        userResult.setUserID(123456L);
-//        userResult.setFirstName("Amrit");
-//        userResult.setLastName("Madugundu");
-//        userResult.setPhoneNumber("9000669247");
-//        System.out.println("Docs: " + docs);
-//        returnResults.put("docs", docs);
-
-//        ObjectMapper mapper = new ObjectMapper();
-////        String json = mapper.writeValueAsString(returnResults);
-////        JsonNode jsonNode = mapper.readTree(json);
-//        JsonNode jsonNode = mapper.convertValue(docs, JsonNode.class);
         return userResult;
     }
 
-    public void index() throws SolrServerException, IOException {
+    public void index(User doc) throws SolrServerException, IOException {
 
         SolrInputDocument document = new SolrInputDocument();
-        document.addField("userID", "123456");
-        document.addField("firstName", "Aditya");
-        document.addField("lastName", "Madugundu");
-        document.addField("phoneNumber", "9000772508");
+        Long userId = doc.getUserID();
+        String firstName = doc.getFirstName();
+        String lastName = doc.getLastName();
+        Long phoneNumber = doc.getPhoneNumber();
+
+
+        document.addField("userID", userId);
+        document.addField("firstName", firstName);
+        document.addField("lastName", lastName);
+        document.addField("phoneNumber", phoneNumber);
         try {
             solr.add(document);
         } catch (SolrServerException e) {

@@ -22,8 +22,8 @@ public class UserServiceImpl {
 
     SolrClient solrClient = new SolrClient().getInstance();
 
-    public void indexDocument() throws SolrServerException, IOException {
-        solrClient.index();
+    public void indexDocument(User doc) throws SolrServerException, IOException {
+        solrClient.index(doc);
     }
 
     public User queryByField(String field, Long value) throws SolrServerException, IOException {

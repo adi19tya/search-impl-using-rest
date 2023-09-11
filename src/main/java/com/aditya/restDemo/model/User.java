@@ -4,14 +4,14 @@ public class User {
     private Long userID;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
+    private Long phoneNumber;
 
     // is this Constructor?
     public User() {
     }
 
     // or this the constructor?
-    public User(Long userID, String firstName, String lastName, String phoneNumber) {
+    public User(Long userID, String firstName, String lastName, Long phoneNumber) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,11 +42,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
